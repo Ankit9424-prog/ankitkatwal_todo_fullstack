@@ -90,9 +90,3 @@ The frontend app will start on `http://localhost:5173`.
 - `PUT /api/tasks/:id` - Update task details or toggle completion
 - `DELETE /api/tasks/:id` - Delete a task
 
-## Student Information
-
-- **Name**: Ankit Katwal
-- **Course**: CSE 230: Web Design and Development (Week 8)
-- **Institution**: Model Institute of Technology (MIT)
-- **Instructor**: Professor Gaurav Raut
