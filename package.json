@@ -1,0 +1,14 @@
+{
+  "name": "ankitkatwal_todo_fullstack",
+  "version": "1.0.0",
+  "description": "Full-Stack To-Do Application with React, Vite, Express, JWT, and MongoDB for CSE 230 Week 8",
+  "private": true,
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm run dev",
+    "start:backend": "cd backend && npm start"
+  },
+  "author": "Ankit Katwal",
+  "license": "ISC"
+}
