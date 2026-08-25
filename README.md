@@ -1,70 +1,41 @@
-# Full-Stack To-Do Application (CSE 230 - Week 8)
+# Full-Stack To-Do App
 
-A complete Full-Stack Single-Page Application (SPA) built with **React (Vite)** on the frontend and **Node.js, Express, and MongoDB (Mongoose)** on the backend, featuring secure **JSON Web Token (JWT)** authentication, client-side route protection, and full CRUD task state management.
+A simple full-stack to-do application built with React, Node.js, Express, and MongoDB for the CSE 230 (Web Design and Development) course at Model Institute of Technology (MIT).
 
----
+## Features
 
-## 📌 Key Features
+- User registration and login using JWT authentication
+- Protected routes so only logged-in users can view and manage their tasks
+- Full CRUD task functionality (create, read, update, mark as complete, delete)
+- Filter tasks by status (All, Pending, Completed)
+- Search tasks by title or description
+- Responsive layout for mobile and desktop
 
-* **JWT Authentication Layer**: Secure user registration (`POST /api/auth/register`), login (`POST /api/auth/login`), profile verification (`GET /api/auth/me`), and logout with salted `bcryptjs` password hashing.
-* **Client-Side Route Protection**: Custom `ProtectedRoute` guard ensuring unauthenticated users cannot access private routes (such as `/dashboard`) and are redirected to `/login`.
-* **Axios Bearer Interceptors**: Automatic injection of `Authorization: Bearer <token>` on all outgoing HTTP requests, with automatic session cleanup on `401 Unauthorized` responses.
-* **Full CRUD Task Operations**:
-  * **Create**: Add new tasks with title, optional description, and due date.
-  * **Read**: Responsive task grid with search and status filtering (`All`, `Pending`, `Completed`).
-  * **Update**: Full modal editor and instant completion status toggle (`isCompleted`).
-  * **Delete**: Permanent task removal with user confirmation.
-* **Resilient User Experience**:
-  * **Optimistic UI Updates**: Instant state changes with automatic rollback on network failure.
-  * **Loading Skeleton Cards**: Smooth placeholders during asynchronous network latency.
-  * **Notification Toast Alerts**: Instant visual feedback for successful operations and error handling.
+## Tech Stack
 
----
+- **Frontend**: React, Vite, React Router, Axios, Tailwind CSS
+- **Backend**: Node.js, Express.js, MongoDB, Mongoose, JSON Web Tokens (JWT), bcryptjs
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 ankitkatwal_todo_fullstack/
 ├── backend/
-│   ├── config/
-│   │   └── db.js
-│   ├── controllers/
-│   │   ├── authController.js
-│   │   └── taskController.js
-│   ├── middleware/
-│   │   ├── authMiddleware.js
-│   │   ├── errorMiddleware.js
-│   │   └── notFoundMiddleware.js
-│   ├── models/
-│   │   ├── Task.js
-│   │   ├── User.js
-│   │   └── store.js
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   └── taskRoutes.js
-│   ├── .env.example
+│   ├── config/db.js              # Database connection
+│   ├── controllers/              # Route controllers (auth & tasks)
+│   ├── middleware/               # Auth token verification & error handlers
+│   ├── models/                   # Mongoose schemas (User & Task)
+│   ├── routes/                   # API route definitions
+│   ├── .env.example              # Environment variables template
 │   ├── package.json
-│   └── server.js
+│   └── server.js                 # Express server entry point
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── NotificationToast.jsx
-│   │   │   ├── ProtectedRoute.jsx
-│   │   │   ├── PublicNavbar.jsx
-│   │   │   ├── SkeletonLoader.jsx
-│   │   │   ├── TaskCard.jsx
-│   │   │   └── TaskFormModal.jsx
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx
-│   │   ├── pages/
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── Login.jsx
-│   │   │   └── Signup.jsx
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   ├── App.jsx
-│   │   ├── index.css
+│   │   ├── components/           # Navbar, TaskCard, TaskModal, etc.
+│   │   ├── context/              # AuthContext for login state
+│   │   ├── pages/                # Login, Signup, Dashboard
+│   │   ├── services/api.js       # Axios API client
+│   │   ├── App.jsx               # Routes
 │   │   └── main.jsx
 │   ├── index.html
 │   ├── package.json
@@ -74,58 +45,54 @@ ankitkatwal_todo_fullstack/
 └── README.md
 ```
 
----
+## Getting Started
 
-## 🔌 REST API Endpoints
+### Prerequisites
 
-### Authentication Routes (`/api/auth`)
-| Method | Endpoint | Access | Description |
-| :--- | :--- | :--- | :--- |
-| `POST` | `/api/auth/register` | Public | Register new user & return signed JWT token |
-| `POST` | `/api/auth/login` | Public | Authenticate credentials & return signed JWT token |
-| `GET` | `/api/auth/me` | Private (Bearer) | Get profile of logged-in user |
-| `POST` | `/api/auth/logout` | Public | Stateless logout confirmation |
+- Node.js (v18+)
+- MongoDB running locally or a MongoDB Atlas connection string
 
-### Task Routes (`/api/tasks`)
-| Method | Endpoint | Access | Description |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/api/tasks` | Private (Bearer) | Get all tasks for user (supports `?completed=true/false`) |
-| `POST` | `/api/tasks` | Private (Bearer) | Create a new task |
-| `GET` | `/api/tasks/:id` | Private (Bearer) | Get single task by ID |
-| `PUT` | `/api/tasks/:id` | Private (Bearer) | Update task details or toggle completion |
-| `DELETE` | `/api/tasks/:id` | Private (Bearer) | Delete task by ID |
+### 1. Backend Setup
 
----
-
-## 🚀 Installation & Setup
-
-### 1. Clone Repository
-```bash
-git clone https://github.com/Ankit9424-prog/ankitkatwal_todo_fullstack.git
-cd ankitkatwal_todo_fullstack
-```
-
-### 2. Backend Setup
 ```bash
 cd backend
 npm install
 npm run dev
 ```
-*Backend runs on `http://127.0.0.1:5000`*
 
-### 3. Frontend Setup
+The backend server will start on `http://localhost:5000`.
+
+### 2. Frontend Setup
+
+In a new terminal:
+
 ```bash
-cd ../frontend
+cd frontend
 npm install
 npm run dev
 ```
-*Frontend runs on `http://127.0.0.1:5173`*
 
----
+The frontend app will start on `http://localhost:5173`.
 
-## 👤 Author Information
-* **Student Name**: Ankit Katwal
-* **Course**: CSE 230: Web Design and Development
-* **Institution**: Model Institute of Technology (MIT)
-* **Instructor**: Professor Gaurav Raut
-* **Submission Date**: August 2026
+## API Endpoints
+
+### Authentication (`/api/auth`)
+
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login and receive JWT token
+- `GET /api/auth/me` - Get logged-in user details (requires token)
+
+### Tasks (`/api/tasks`)
+
+- `GET /api/tasks` - Get all tasks for the logged-in user
+- `POST /api/tasks` - Create a new task
+- `GET /api/tasks/:id` - Get a specific task
+- `PUT /api/tasks/:id` - Update task details or toggle completion
+- `DELETE /api/tasks/:id` - Delete a task
+
+## Student Information
+
+- **Name**: Ankit Katwal
+- **Course**: CSE 230: Web Design and Development (Week 8)
+- **Institution**: Model Institute of Technology (MIT)
+- **Instructor**: Professor Gaurav Raut
